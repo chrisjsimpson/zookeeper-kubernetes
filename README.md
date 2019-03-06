@@ -10,4 +10,21 @@ Do not use in production. Provides no fault tolerance:
   kubectl apply -f zookeeper-no-anti-afinity-no-fault-tolerance.yaml
 ```
 
+## Debugging fun
+
+See / monitor pod creation after issuing `kubectl apply -f`:
+```
+kubectl get -w pods -l app=zk # The -l means only show pods with the label app and equal to zk
+```
+
+If a pod creation is failing (e.g. crashloop back off) then look deeper:
+```
+kubectl describe pod <pod name>
+```
+And/or look at it's logs, if it's alive
+```
+kubectl logs -f <pod name>
+
+```
+
 Based on src: https://github.com/kubernetes/contrib/tree/master/statefulsets/zookeeper 
